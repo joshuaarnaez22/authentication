@@ -1,7 +1,15 @@
+import { auth } from "@/lib/auth";
+import { redirect } from "next/navigation";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import SignUpContent from "./_components/sign-up-content";
 
-export default function SignUpPage() {
+export default async function SignUpPage() {
+  const session = await auth();
+
+  if (session?.user) {
+    redirect("/dashboard");
+  }
+
   return (
     <Card className="mx-auto max-w-sm">
       <CardHeader>
